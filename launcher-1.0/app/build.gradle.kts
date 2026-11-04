@@ -1,7 +1,7 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android") }
 android {
  namespace = "pro.minecube.gecraft"; compileSdk = 35
- defaultConfig { applicationId = "pro.minecube.gecraft"; minSdk = 26; targetSdk = 35; versionCode = 2; versionName = "1.0-pre2" }
+ defaultConfig { applicationId = "pro.minecube.gecraft"; minSdk = 26; targetSdk = 35; versionCode = 1; versionName = "1.0-pre1" }
  buildFeatures { compose = true }; composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }; kotlinOptions { jvmTarget = "17" }
 }
 dependencies {
