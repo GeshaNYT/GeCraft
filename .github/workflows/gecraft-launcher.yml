@@ -1,0 +1,26 @@
+name: GeCraft Launcher 1.0 — Pre-release 1
+on:
+  push:
+    branches: [launcher-1.0-pre2]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build APK
+        run: gradle -p launcher-1.0 :app:assembleDebug
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GeCraft-Launcher-1.0-pre1
+          path: launcher-1.0/app/build/outputs/apk/debug/*.apk
