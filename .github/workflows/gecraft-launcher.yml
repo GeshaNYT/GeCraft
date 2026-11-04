@@ -1,9 +1,15 @@
 name: GeCraft Launcher 1.0 — Pre-release 1
 on:
   push:
-    branches: [launcher-1.0-pre2]
+    branches: [main]
+    paths:
+      - "launcher-1.0/**"
+      - ".github/workflows/gecraft-launcher.yml"
   pull_request:
     branches: [main]
+    paths:
+      - "launcher-1.0/**"
+      - ".github/workflows/gecraft-launcher.yml"
   workflow_dispatch:
 permissions:
   contents: read
@@ -17,10 +23,11 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-      - name: Build APK
+      - name: Build debug APK
         run: gradle -p launcher-1.0 :app:assembleDebug
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: GeCraft-Launcher-1.0-pre1
           path: launcher-1.0/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
