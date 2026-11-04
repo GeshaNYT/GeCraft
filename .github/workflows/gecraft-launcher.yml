@@ -18,6 +18,9 @@ jobs:
       - name: Checkout GeCraft customization
         uses: actions/checkout@v4
 
+      - name: Configure GitHub submodules to use HTTPS
+        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+
       - name: Checkout Amethyst (PojavLauncher-based engine)
         run: git clone --recursive --depth 1 --branch v3_openjdk https://github.com/AngelAuraMC/Amethyst-Android.git launcher-src
 
