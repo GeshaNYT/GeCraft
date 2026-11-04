@@ -10,6 +10,9 @@ on:
       - 'l10n_v3_openjdk'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -94,3 +97,17 @@ jobs:
           name: GeCraft-APK
           path: out/app-debug.*
 
+
+      - name: Publish GeCraft.apk to Releases
+        if: github.event_name != 'pull_request'
+        run: cp out/app-debug.apk out/GeCraft.apk
+
+      - name: Create release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: GeCraft (сборка ${{ github.run_number }})
+          body: Скачай GeCraft.apk ниже и установи на телефон.
+          make_latest: true
+          files: out/GeCraft.apk
