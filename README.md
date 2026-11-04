@@ -1,3 +1,8 @@
+> 🗃️ **ARCHIVED / LEGACY — DO NOT USE FOR CURRENT DEVELOPMENT**  
+> This branch contains the old GeCraft/PojavLauncher-based project. It is preserved only for reference.  
+> **The active project is in `main`: GeCraft Launcher 1.0-pre1.**  
+> [Go to current main](https://github.com/GeshaNYT/GeCraft/tree/main) · [Current launcher source](https://github.com/GeshaNYT/GeCraft/tree/main/launcher-1.0)
+
 # GeCraft Launcher
 
 Модифицированная версия [Amethyst](https://github.com/AngelAuraMC/Amethyst-Android) (форк PojavLauncher, LGPL-3.0): новое название, иконка и оформление.
