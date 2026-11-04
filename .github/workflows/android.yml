@@ -1,114 +1,16 @@
-name: Android CI
-
+name: Legacy Pojav Build (архив)
 on:
   pull_request:
-    branches-ignore:
-      - 'l10n_v3_openjdk' 
-    types: [ opened, reopened ]
+    branches-ignore: [l10n_v3_openjdk]
+    types: [opened, reopened]
   push:
-    branches-ignore:
-      - 'l10n_v3_openjdk'
+    branches-ignore: [l10n_v3_openjdk]
   workflow_dispatch:
-
 permissions:
-  contents: write
-
+  contents: read
 jobs:
-  build:
+  legacy-build:
     runs-on: ubuntu-22.04
-    env:
-      GPLAY_KEYSTORE_PASSWORD: ${{ secrets.GPLAY_KEYSTORE_PASSWORD }}
-      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: "recursive"
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
-      - name: Get JRE 8
-        uses: dawidd6/action-download-artifact@v9
-        with:
-          workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre
-          workflow_conclusion: completed
-          repo: AngelAuraMC/angelauramc-openjdk-build
-          branch: buildjre8
-          name: jre8-pojav
-
-      # - name: Get JRE17
-      #   uses: dawidd6/action-download-artifact@v9
-      #   with:
-      #     workflow: build.yml
-      #     path: app_pojavlauncher/src/main/assets/components/jre-new
-      #     workflow_conclusion: completed
-      #     repo: AngelAuraMC/angelauramc-openjdk-build
-      #     branch: buildjre17-21
-      #     name: jre17-pojav
-      #
-      # - name: Get JRE21
-      #   uses: dawidd6/action-download-artifact@v9
-      #   with:
-      #     workflow: build.yml
-      #     path: app_pojavlauncher/src/main/assets/components/jre-21
-      #     workflow_conclusion: completed
-      #     repo: AngelAuraMC/angelauramc-openjdk-build
-      #     branch: buildjre17-21
-      #     name: jre21-pojav
-      #
-      # - name: Get JRE25
-      #   uses: dawidd6/action-download-artifact@v9
-      #   with:
-      #     workflow: build.yml
-      #     path: app_pojavlauncher/src/main/assets/components/jre-25
-      #     workflow_conclusion: completed
-      #     repo: FCL-Team/Android-OpenJDK-Build
-      #     branch: Build_JRE_25
-      #     name: jre25-multiarch
-
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          validate-wrappers: false
-          gradle-version: "9.6.1"
-
-      - name: Run scripts
-        run: |
-          ./scripts/languagelist_updater.sh
-          mkdir out
-
-      - name: Build Debug .apk
-        run: |
-          # Build the launcher
-          gradle :app_pojavlauncher:assembleDebug
-          mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug.apk
-
-      - name: Gen md5sums
-        run: |
-          md5sum out/app-debug.apk > out/app-debug.md5
-
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: GeCraft-APK
-          path: out/app-debug.*
-
-
-      - name: Publish GeCraft.apk to Releases
-        if: github.event_name != 'pull_request'
-        run: cp out/app-debug.apk out/GeCraft.apk
-
-      - name: Create release
-        if: github.event_name != 'pull_request'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: build-${{ github.run_number }}
-          name: GeCraft — прототип (сборка ${{ github.run_number }})
-          body: "⚠️ Прототип — тестовая сборка, не финальная версия. Возможны баги. Скачай GeCraft.apk ниже."
-          prerelease: true
-          make_latest: false
-          files: out/GeCraft.apk
+      - name: Legacy pipeline archived
+        run: echo "Старые сборки сохранены как история. Новая линейка GeCraft Launcher 1.x собирается workflow geCraft-launcher.yml."
