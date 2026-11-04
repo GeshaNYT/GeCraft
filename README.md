@@ -1,3 +1,8 @@
+> 🚧 **ACTIVE DEVELOPMENT — MAIN BRANCH**  
+> **Current priority:** GeCraft Launcher **1.0-pre1**. All new development, updates and releases belong to `main`.  
+> Start here: [launcher-1.0 project](./launcher-1.0/) · [latest releases](https://github.com/GeshaNYT/GeCraft/releases)  
+> The legacy Pojav/Amethyst-based code is archived in branch [`old`](https://github.com/GeshaNYT/GeCraft/tree/old) and is **not the current launcher**.
+
 # GeCraft Launcher
 
 Модифицированная версия [Amethyst](https://github.com/AngelAuraMC/Amethyst-Android) (форк PojavLauncher, LGPL-3.0): новое название, иконка и оформление.
