@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GEnesis Launcher palette -->
+    <color name="control_button_color">#4D7C5CFF</color>
+    <color name="control_button_pressed_color">#8000D4AA</color>
+
+    <color name="minebutton_color">#00D4AA</color>
+    <color name="ge_accent_violet">#7C5CFF</color>
+    <color name="ge_accent_violet_dark">#5A3FD6</color>
+    <color name="ge_accent_teal_dark">#00A887</color>
+
+    <color name="background_app">#0F1020</color>
+    <color name="divider">@color/background_overlay</color>
+    <color name="background_overlay">#2A2C48</color>
+    <color name="background_status_bar">#171830</color>
+    <color name="background_bottom_bar">#141529</color>
+
+    <color name="primary_text">#F2F3FF</color>
+    <color name="secondary_text">#A3A6C8</color>
+</resources>
