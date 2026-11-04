@@ -107,7 +107,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: GeCraft (сборка ${{ github.run_number }})
-          body: Скачай GeCraft.apk ниже и установи на телефон.
-          make_latest: true
+          name: GeCraft — прототип (сборка ${{ github.run_number }})
+          body: "⚠️ Прототип — тестовая сборка, не финальная версия. Возможны баги. Скачай GeCraft.apk ниже."
+          prerelease: true
+          make_latest: false
           files: out/GeCraft.apk
