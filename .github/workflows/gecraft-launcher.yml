@@ -1,4 +1,5 @@
 name: GeCraft Launcher 1.0 — Pre-release 1
+
 on:
   push:
     branches: [main]
@@ -11,23 +12,48 @@ on:
       - "launcher-1.0/**"
       - ".github/workflows/gecraft-launcher.yml"
   workflow_dispatch:
+
 permissions:
-  contents: read
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
+
       - uses: gradle/actions/setup-gradle@v4
+
       - name: Build debug APK
         run: gradle -p launcher-1.0 :app:assembleDebug
+
+      - name: Verify APK exists
+        run: test -s launcher-1.0/app/build/outputs/apk/debug/app-debug.apk
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: GeCraft-Launcher-1.0-pre1
-          path: launcher-1.0/app/build/outputs/apk/debug/*.apk
+          path: launcher-1.0/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish Pre-release 1 on manual run
+        if: github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0-pre1
+          name: GeCraft Launcher 1.0 — Pre-release 1
+          body: |
+            **GeCraft Launcher 1.0 — Pre-release 1**
+
+            Первый тестовый прототип новой линейки.
+            Пока доступны локальный профиль и интерфейс; установка Minecraft и запуск игры ещё не реализованы.
+            Не является полноценным игровым лаунчером.
+          prerelease: true
+          files: launcher-1.0/app/build/outputs/apk/debug/app-debug.apk
