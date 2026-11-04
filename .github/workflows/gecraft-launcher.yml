@@ -1,59 +1,43 @@
-name: GeCraft Launcher 1.0 — Pre-release 1
+name: GeCraft Android Launcher — build from Amethyst
 
 on:
   push:
     branches: [main]
     paths:
-      - "launcher-1.0/**"
       - ".github/workflows/gecraft-launcher.yml"
-  pull_request:
-    branches: [main]
-    paths:
-      - "launcher-1.0/**"
-      - ".github/workflows/gecraft-launcher.yml"
+      - "gecraft/**"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout GeCraft customization
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+      - name: Checkout Amethyst (PojavLauncher-based engine)
+        run: git clone --recursive --depth 1 --branch v3_openjdk https://github.com/AngelAuraMC/Amethyst-Android.git launcher-src
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v4
+      - name: Brand app as GeCraft
+        run: sed -i 's/>Amethyst</>GeCraft</g' launcher-src/app_pojavlauncher/src/main/res/values/strings.xml
 
-      - name: Build debug APK
-        run: gradle -p launcher-1.0 :app:assembleDebug
+      - name: Build Android APK
+        working-directory: launcher-src
+        run: chmod +x gradlew && ./gradlew :app_pojavlauncher:assembleDebug
 
-      - name: Verify APK exists
-        run: test -s launcher-1.0/app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Upload APK artifact
+      - name: Upload GeCraft APK
         uses: actions/upload-artifact@v4
         with:
           name: GeCraft-Launcher-1.0-pre1
-          path: launcher-1.0/app/build/outputs/apk/debug/app-debug.apk
+          path: launcher-src/app_pojavlauncher/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 30
-
-      - name: Publish Pre-release 1 on manual run
-        if: github.event_name == 'workflow_dispatch'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v1.0-pre1
-          name: GeCraft Launcher 1.0 — Pre-release 1
-          body: |
-            **GeCraft Launcher 1.0 — Pre-release 1**
-
-            Первый тестовый прототип новой линейки.
-            Пока доступны локальный профиль и интерфейс; установка Minecraft и запуск игры ещё не реализованы.
-            Не является полноценным игровым лаунчером.
-          prerelease: true
-          files: launcher-1.0/app/build/outputs/apk/debug/app-debug.apk
