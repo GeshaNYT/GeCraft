@@ -22,7 +22,7 @@ class MainActivity:ComponentActivity(){
   var nick by remember { mutableStateOf(prefs.getString("nickname","") ?: "") };var saved by remember { mutableStateOf(nick.isNotBlank()) };var note by remember { mutableStateOf("Offline Account — локальный профиль") }
   MaterialTheme(colorScheme=darkColorScheme(primary=Blue,background=Navy,surface=Panel)){Surface(Modifier.fillMaxSize(),color=Navy){
    Column(Modifier.fillMaxSize().padding(24.dp),horizontalAlignment=Alignment.CenterHorizontally){
-    Spacer(Modifier.height(24.dp));Text("GeCraft",color=Blue,fontSize=38.sp,fontWeight=FontWeight.Black);Text("LAUNCHER 1.0 • PRE-RELEASE 2",color=Color.LightGray,fontSize=12.sp);Spacer(Modifier.height(32.dp))
+    Spacer(Modifier.height(24.dp));Text("GeCraft",color=Blue,fontSize=38.sp,fontWeight=FontWeight.Black);Text("LAUNCHER 1.0 • PRE-RELEASE 1",color=Color.LightGray,fontSize=12.sp);Spacer(Modifier.height(32.dp))
     Card(Modifier.fillMaxWidth(),colors=CardDefaults.cardColors(containerColor=Panel),shape=RoundedCornerShape(22.dp)){Column(Modifier.padding(20.dp)){
      Text("OFFLINE ACCOUNT",color=Blue,fontWeight=FontWeight.Bold);Spacer(Modifier.height(12.dp))
      OutlinedTextField(value=nick,onValueChange={nick=it.take(16);saved=false},label={Text("Имя игрока")},singleLine=true,keyboardOptions=KeyboardOptions(capitalization=KeyboardCapitalization.None,keyboardType=KeyboardType.Ascii),modifier=Modifier.fillMaxWidth())
