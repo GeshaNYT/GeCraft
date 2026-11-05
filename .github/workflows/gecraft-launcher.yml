@@ -1,11 +1,8 @@
-name: GeCraft Android Launcher — build from Amethyst
+name: GeCraft Android Launcher — build from repository
 
 on:
   push:
     branches: [main]
-    paths:
-      - ".github/workflows/gecraft-launcher.yml"
-      - "gecraft/**"
   workflow_dispatch:
 
 permissions:
@@ -15,14 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout GeCraft customization
+      - name: Checkout GeCraft source and submodules
         uses: actions/checkout@v4
-
-      - name: Configure GitHub submodules to use HTTPS
-        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
-
-      - name: Checkout Amethyst (PojavLauncher-based engine)
-        run: git clone --recursive --depth 1 --branch v3_openjdk https://github.com/AngelAuraMC/Amethyst-Android.git launcher-src
+        with:
+          submodules: recursive
 
       - name: Set up JDK 21 and JDK 8 (Gradle + legacy Java toolchain)
         uses: actions/setup-java@v4
@@ -34,11 +27,10 @@ jobs:
 
       - name: Brand app as GeCraft
         run: |
-          sed -i 's/>Amethyst</>GeCraft</g' launcher-src/app_pojavlauncher/src/main/res/values/strings.xml
-          sed -i 's/Amethyst/GeCraft/g' launcher-src/app_pojavlauncher/src/main/assets/about_en.txt
+          sed -i 's/>Amethyst</>GeCraft</g' app_pojavlauncher/src/main/res/values/strings.xml
+          sed -i 's/Amethyst/GeCraft/g' app_pojavlauncher/src/main/assets/about_en.txt
 
       - name: Build Android APK
-        working-directory: launcher-src
         env:
           JAVA_HOME: ${{ env.JAVA_HOME_21_X64 }}
           GRADLE_OPTS: -Dorg.gradle.java.installations.paths=${{ env.JAVA_HOME_8_X64 }},${{ env.JAVA_HOME_21_X64 }}
@@ -48,6 +40,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GeCraft-Launcher-1.0-pre1
-          path: launcher-src/app_pojavlauncher/build/outputs/apk/debug/*.apk
+          path: app_pojavlauncher/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 30
