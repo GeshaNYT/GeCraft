@@ -1,17 +1,12 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
-import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
@@ -27,35 +22,25 @@ public class ProfileTypeSelectFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.vanilla_profile).setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class,
-                ProfileEditorFragment.TAG, new Bundle(1)));
+        view.findViewById(R.id.vanilla_profile).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), ProfileEditorFragment.class, ProfileEditorFragment.TAG, new Bundle(1)));
 
-        // NOTE: Special care needed! If you wll decide to add these to the back stack, please read
-        // the comment in FabricInstallFragment.onDownloadFinished() and amend the code
-        // in FabricInstallFragment.onDownloadFinished() and ModVersionListFragment.onDownloadFinished()
+        // Modloader installation is available for both local/offline and Microsoft profiles.
         view.findViewById(R.id.optifine_profile).setOnClickListener(v ->
-                tryInstall(OptiFineInstallFragment.class, OptiFineInstallFragment.TAG));
-        view.findViewById(R.id.modded_profile_fabric).setOnClickListener((v)->
-                tryInstall(FabricInstallFragment.class, FabricInstallFragment.TAG));
-        view.findViewById(R.id.modded_profile_forge).setOnClickListener((v)->
-                tryInstall(ForgeInstallFragment.class, ForgeInstallFragment.TAG));
-        view.findViewById(R.id.modded_profile_neoforge).setOnClickListener((v)->
-                tryInstall(NeoForgeInstallFragment.class, NeoForgeInstallFragment.TAG));
-        view.findViewById(R.id.modded_profile_modpack).setOnClickListener((v)->
-                tryInstall(ModpackCreateFragment.class, ModpackCreateFragment.TAG));
-        view.findViewById(R.id.modded_profile_lwjgl3ify).setOnClickListener((v)->
-                tryInstall(LWJGL3ifyInstallFragment.class, LWJGL3ifyInstallFragment.TAG));
-        view.findViewById(R.id.modded_profile_quilt).setOnClickListener((v)->
-                tryInstall(QuiltInstallFragment.class, QuiltInstallFragment.TAG));
-        view.findViewById(R.id.modded_profile_bta).setOnClickListener((v)->
-                tryInstall(BTAInstallFragment.class, BTAInstallFragment.TAG));
-    }
-
-    private void tryInstall(Class<? extends Fragment> fragmentClass, String tag){
-        if(!hasOnlineProfile()){
-            hasNoOnlineProfileDialog(requireActivity());
-        } else {
-            Tools.swapFragment(requireActivity(), fragmentClass, tag, null);
-        }
+                Tools.swapFragment(requireActivity(), OptiFineInstallFragment.class, OptiFineInstallFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_fabric).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), FabricInstallFragment.class, FabricInstallFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_forge).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), ForgeInstallFragment.class, ForgeInstallFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_neoforge).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), NeoForgeInstallFragment.class, NeoForgeInstallFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_modpack).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), ModpackCreateFragment.class, ModpackCreateFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_lwjgl3ify).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), LWJGL3ifyInstallFragment.class, LWJGL3ifyInstallFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_quilt).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), QuiltInstallFragment.class, QuiltInstallFragment.TAG, null));
+        view.findViewById(R.id.modded_profile_bta).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), BTAInstallFragment.class, BTAInstallFragment.TAG, null));
     }
 }
