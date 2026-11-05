@@ -1,10 +1,5 @@
 name: Legacy Pojav Build (архив)
 on:
-  pull_request:
-    branches-ignore: [l10n_v3_openjdk]
-    types: [opened, reopened]
-  push:
-    branches-ignore: [l10n_v3_openjdk]
   workflow_dispatch:
 permissions:
   contents: read
