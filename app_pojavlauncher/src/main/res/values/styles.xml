@@ -8,9 +8,14 @@
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@color/background_app</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-
         <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
 
+    <!-- GeCraft section headings: readable, consistent with the dark teal/violet palette -->
+    <style name="GeCraftSectionTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.02</item>
     </style>
 
     <style name="LauncherFragment_Divider">
@@ -18,21 +23,17 @@
         <item name="android:layout_height">0dp</item>
         <item name="android:background">@color/divider</item>
     </style>
-
     <style name="LauncherMenuButton" parent="Widget.AppCompat.Button">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
-
     <style name="LauncherMenuButton.Universal" parent="LauncherMenuButton">
         <item name="android:layout_height">@dimen/_66sdp</item>
     </style>
-
     <style name="ThickDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_1sdp</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
-
     <item name="dimension_tracker" type="id" />
     <style name="DimensionTracker">
         <item name="android:id">@id/dimension_tracker</item>
