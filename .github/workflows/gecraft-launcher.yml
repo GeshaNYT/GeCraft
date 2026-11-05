@@ -1,5 +1,10 @@
 name: GeCraft Android Launcher — build from repository
 
+# Keep only one active build for main; newer commits cancel stale runs.
+concurrency:
+  group: gecraft-android-main
+  cancel-in-progress: true
+
 on:
   push:
     branches: [main]
