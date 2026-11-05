@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
-import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,7 +30,7 @@ public class ModpackCreateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         view.findViewById(R.id.button_browse_modpacks).setOnClickListener(v -> {
-            tryInstall(SearchModFragment.class, SearchModFragment.TAG);
+            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
         });
         view.findViewById(R.id.button_import_modpack).setOnClickListener(v -> {
             Activity launcheractivity = requireActivity();
@@ -46,11 +44,4 @@ public class ModpackCreateFragment extends Fragment {
         });;
     }
 
-    private void tryInstall(Class<? extends Fragment> fragmentClass, String tag){
-        if(!hasOnlineProfile()){
-            hasNoOnlineProfileDialog(requireActivity());
-        } else {
-            Tools.swapFragment(requireActivity(), fragmentClass, tag, null);
-        }
-    }
 }
